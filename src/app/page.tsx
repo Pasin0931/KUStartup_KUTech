@@ -1,69 +1,321 @@
-import Image from "next/image";
+"use client"
 
-export default function Home() {
-  return (
-    <div className="flex flex-col flex-1 items-center justify-center bg-zinc-50 font-sans dark:bg-black">
-      <main className="flex flex-1 w-full max-w-3xl flex-col items-center justify-between py-32 px-16 bg-white dark:bg-black sm:items-start">
-        <Image
-          className="dark:invert h-5 w-[100px]"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className="flex flex-col items-center gap-6 text-center sm:items-start sm:text-left">
-          <h1 className="max-w-xs text-3xl font-semibold leading-10 tracking-tight text-black dark:text-zinc-50">
-            To get started, edit the{" "}
-            <code className="rounded bg-black/[.06] px-1.5 py-0.5 font-mono text-[0.9em] dark:bg-white/[.08]">
-              page.tsx
-            </code>{" "}
-            file.
-          </h1>
-          <p className="max-w-md text-lg leading-8 text-zinc-600 dark:text-zinc-400">
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input";
+
+import { mentors_name } from "@/lib/dataa"
+import { participants_name } from "@/lib/dataa"
+import { attendance } from "@/lib/dataa"
+import { date_session } from "@/lib/dataa"
+
+import Image from "next/image"
+
+import { motion } from "framer-motion"
+
+import {
+    Combobox,
+    ComboboxContent,
+    ComboboxEmpty,
+    ComboboxInput,
+    ComboboxItem,
+    ComboboxList,
+} from "@/components/ui/combobox"
+
+import {
+    Field,
+    FieldDescription,
+    FieldLabel,
+    FieldLegend,
+    FieldSet,
+} from "@/components/ui/field"
+import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group"
+import { Textarea } from "@/components/ui/textarea";
+
+
+export default function HomePage() {
+
+    const [thisMentor, setThisMentor] = useState<string>('');
+    const [thisParName, setThisParName] = useState<string>('');
+    const [thisAttendance, setThisAttendance] = useState<string>('');
+    const [thisSession, setThisSession] = useState<string>('');
+
+    const [asst1, setAsst1] = useState<number | null>();
+    const [asst2, setAsst2] = useState<number | null>();
+    const [asst3, setAsst3] = useState<number | null>();
+
+    const [feedback, setFeedBack] = useState<string>('');
+    const [bhFeedBack, setBhFeedBack] = useState<string>('')
+
+    const handle_submit = async () => {
+        if (!confirm("Are you sure that you want to submit ?")) {
+            return
+        }
+
+        // alert(process.env.SHEET_LINK_URL)
+
+        await fetch("/api/submit", {
+            method: "POST",
+            body: JSON.stringify({
+                mentor: thisMentor,
+                participant: thisParName,
+                attendance: thisAttendance,
+                session: thisSession,
+                asst1,
+                asst2,
+                asst3,
+                feedback,
+                bhFeedback: bhFeedBack,
+            }),
+        });
+
+        setThisMentor('')
+        setThisParName('')
+        setThisAttendance('')
+        setThisSession('')
+        setAsst1(null)
+        setAsst2(null)
+        setAsst3(null)
+        setFeedBack('')
+        setBhFeedBack('')
+
+        alert("Record saved")
+    }
+
+    return (
+        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-15">
+            <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, ease: "easeOut" }}
+                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 w-150 shadow-2xl"
             >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              className="font-medium text-zinc-950 dark:text-zinc-50"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className="flex flex-col gap-4 text-base font-medium sm:flex-row">
-          <a
-            className="flex h-12 w-full items-center justify-center gap-2 rounded-full bg-foreground px-5 text-background transition-colors hover:bg-[#383838] dark:hover:bg-[#ccc] md:w-[158px]"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert h-[14px] w-4"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={14}
-            />
-            Deploy Now
-          </a>
-          <a
-            className="flex h-12 w-full items-center justify-center rounded-full border border-solid border-black/[.08] px-5 transition-colors hover:border-transparent hover:bg-black/[.04] dark:border-white/[.145] dark:hover:bg-[#1a1a1a] md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
-    </div>
-  );
+
+                <div className="">
+                    <Image
+                        alt="logo"
+                        src="/ku.png"
+                        width={250}
+                        height={100}
+                        className="/ku.png"
+                    />
+                </div>
+                <h1 className="font-bold text-3xl">KU Startup & KU Tech</h1>
+
+                <div className="bg-[#D3D3D3] w-full h-[3px] rounded rounded-100"></div>
+
+                <div className="w-full">
+                    <h2 className="flex flex-col justify-center items-center pb-6 font-bold">All fills are required in order to submit</h2>
+
+                    <h2 className="self-start pl-4 pb-1 font-bold">Mentor Name</h2>
+                    <Combobox
+                        items={mentors_name}
+                        value={thisMentor}
+                        onValueChange={(value) => setThisMentor(value ?? '')}
+                    >
+                        <ComboboxInput placeholder="Select your mentor name" />
+                        <ComboboxContent>
+                            <ComboboxEmpty>No items found.</ComboboxEmpty>
+                            <ComboboxList>
+                                {(item) => (
+                                    <ComboboxItem key={item} value={item}>
+                                        {item}
+                                    </ComboboxItem>
+                                )}
+                            </ComboboxList>
+                        </ComboboxContent>
+                    </Combobox>
+                </div>
+
+                <div className="w-full">
+                    <h2 className="self-start pl-4 pb-1 font-bold">Participants Name</h2>
+                    <Combobox
+                        items={participants_name}
+                        value={thisParName}
+                        onValueChange={(value) => setThisParName(value ?? '')}
+                    >
+                        <ComboboxInput placeholder="Select participant name" />
+                        <ComboboxContent>
+                            <ComboboxEmpty>No items found.</ComboboxEmpty>
+                            <ComboboxList>
+                                {(item) => (
+                                    <ComboboxItem key={item} value={item}>
+                                        {item}
+                                    </ComboboxItem>
+                                )}
+                            </ComboboxList>
+                        </ComboboxContent>
+                    </Combobox>
+                </div>
+
+                <div className="w-full">
+                    <h2 className="self-start pl-4 pb-1 font-bold">Attendance</h2>
+                    <Combobox
+                        items={attendance}
+                        value={thisAttendance}
+                        onValueChange={(value) => setThisAttendance(value ?? '')}
+                    >
+                        <ComboboxInput placeholder="Select participant attendance" />
+                        <ComboboxContent>
+                            <ComboboxEmpty>No items found.</ComboboxEmpty>
+                            <ComboboxList>
+                                {(item) => (
+                                    <ComboboxItem key={item} value={item}>
+                                        {item}
+                                    </ComboboxItem>
+                                )}
+                            </ComboboxList>
+                        </ComboboxContent>
+                    </Combobox>
+                </div>
+
+                <div className="w-full">
+                    <h2 className="self-start pl-4 pb-1 font-bold">Session</h2>
+                    <Combobox
+                        items={date_session}
+                        value={thisSession}
+                        onValueChange={(value) => setThisSession(value ?? '')}
+                    >
+                        <ComboboxInput placeholder="Select your session" />
+                        <ComboboxContent>
+                            <ComboboxEmpty>No items found.</ComboboxEmpty>
+                            <ComboboxList>
+                                {(item) => (
+                                    <ComboboxItem key={item} value={item}>
+                                        {item}
+                                    </ComboboxItem>
+                                )}
+                            </ComboboxList>
+                        </ComboboxContent>
+                    </Combobox>
+                </div>
+                {thisMentor.trim() !== '' && thisParName.trim() !== '' && thisAttendance.trim() !== '' && thisSession.trim() !== '' &&
+                    thisMentor.trim() !== '---' && thisParName.trim() !== '---' && thisAttendance.trim() !== '---' && thisSession.trim() !== '---' && (
+                        <motion.div
+                            initial={{ opacity: 0, height: 0 }}
+                            animate={{ opacity: 1, height: "auto" }}
+                            transition={{ duration: 0.3 }}
+                            className="w-full mt-3"
+                        >
+                            <div className="bg-[#D3D3D3] w-full h-[3px] rounded rounded-100 mb-9"></div>
+
+                            <div>
+                                <FieldSet className="w-full max-w">
+                                    <FieldLegend variant="label">Skill Assetment 1</FieldLegend>
+                                    <FieldDescription>
+                                        Yearly and lifetime plans offer significant savings.
+                                    </FieldDescription>
+                                    <RadioGroup value={asst1?.toString() ?? ''} onValueChange={(value) => setAsst1(Number(value))}>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="1" id="asst1-1" />
+                                            <FieldLabel htmlFor="asst1-1" className="font-normal">
+                                                1 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="2" id="asst1-2" />
+                                            <FieldLabel htmlFor="asst1-2" className="font-normal">
+                                                2 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="3" id="asst1-3" />
+                                            <FieldLabel htmlFor="asst1-3" className="font-normal">
+                                                3 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                    </RadioGroup>
+                                </FieldSet>
+                            </div>
+
+                            <div className="pt-6">
+                                <FieldSet className="w-full max-w">
+                                    <FieldLegend variant="label">Skill Assetment 2</FieldLegend>
+                                    <FieldDescription>
+                                        Yearly and lifetime plans offer significant savings.
+                                    </FieldDescription>
+                                    <RadioGroup value={asst2?.toString() ?? ''} onValueChange={(value) => setAsst2(Number(value))}>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="1" id="asst2-1" />
+                                            <FieldLabel htmlFor="asst2-1" className="font-normal">
+                                                1 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="2" id="asst2-2" />
+                                            <FieldLabel htmlFor="asst2-2" className="font-normal">
+                                                2 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="3" id="asst2-3" />
+                                            <FieldLabel htmlFor="asst2-3" className="font-normal">
+                                                3 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                    </RadioGroup>
+                                </FieldSet>
+                            </div>
+
+                            <div className="pt-6">
+                                <FieldSet className="w-full max-w">
+                                    <FieldLegend variant="label">Skill Assetment 3</FieldLegend>
+                                    <FieldDescription>
+                                        Yearly and lifetime plans offer significant savings.
+                                    </FieldDescription>
+                                    <RadioGroup value={asst3?.toString() ?? ''} onValueChange={(value) => setAsst3(Number(value))}>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="1" id="asst3-1" />
+                                            <FieldLabel htmlFor="asst3-1" className="font-normal">
+                                                1 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="2" id="asst3-2" />
+                                            <FieldLabel htmlFor="asst3-2" className="font-normal">
+                                                2 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                        <Field orientation="horizontal">
+                                            <RadioGroupItem value="3" id="asst3-3" />
+                                            <FieldLabel htmlFor="asst3-3" className="font-normal">
+                                                3 (สามารถ ...)
+                                            </FieldLabel>
+                                        </Field>
+                                    </RadioGroup>
+                                </FieldSet>
+                            </div>
+
+                            <div className="mt-6">
+                                <div className="flex flex-col justify-cemter items-center pb-2">
+                                    <h3 className="flex flex-col justify-center items-center font-bold">Feedback</h3>
+                                    <p className="text-[#FF0F0F]">(* สำหรับพิมพ์ประเมินผลงาน สิ่งที่ทำได้ดี และสิ่งที่ควรพัฒนา)</p>
+                                </div>
+                                <Textarea value={feedback} onChange={(e) => setFeedBack(e.target.value)}></Textarea>
+                            </div>
+
+                            <div className="mt-6">
+                                <div className="flex flex-col justify-cemter items-center pb-2">
+                                    <h3 className="flex flex-col justify-center items-center font-bold">Feedback Beheavior</h3>
+                                    <p className="text-[#FF0F0F]">(* สำหรับประเมินพฤติกรรมในคลาส)</p>
+                                </div>
+                                <Textarea value={bhFeedBack} onChange={(e) => setBhFeedBack(e.target.value)}></Textarea>
+                            </div>
+
+                            {asst1 !== null && asst2 !== null && asst3 !== null && feedback.trim() !== '' && bhFeedBack.trim() !== '' && (
+                                <motion.div
+                                    initial={{ opacity: 0, scale: 0.7 }}
+                                    animate={{ opacity: 1, scale: 1 }}
+                                    transition={{ duration: 0.3, ease: "backOut" }}
+                                    className="flex flex-col items-center justify-center"
+                                >
+                                    <Button onClick={() => handle_submit()} className='w-40 h-10 mt-6 bg-gradient-to-br from-[#7FC8C4] via-[#2E6E8E] to-[#1B2A4A] text-white'>Submit Form</Button>
+                                </motion.div>
+                            )}
+
+                        </motion.div>
+                    )}
+            </motion.div>
+        </div >
+    )
 }
