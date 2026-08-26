@@ -9,6 +9,8 @@ import { participants_name } from "@/lib/dataa"
 import { attendance } from "@/lib/dataa"
 import { date_session } from "@/lib/dataa"
 
+import { Loader2 } from "lucide-react"
+
 import Image from "next/image"
 
 import { motion } from "framer-motion"
@@ -35,6 +37,8 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function HomePage() {
 
+    const [isLoading, setIsLoading] = useState<boolean>(false)
+
     const [thisMentor, setThisMentor] = useState<string>('');
     const [thisParName, setThisParName] = useState<string>('');
     const [thisAttendance, setThisAttendance] = useState<string>('');
@@ -48,42 +52,69 @@ export default function HomePage() {
     const [bhFeedBack, setBhFeedBack] = useState<string>('')
 
     const handle_submit = async () => {
-        if (!confirm("Are you sure that you want to submit ?")) {
-            return
+        try {
+            if (!confirm("Are you sure that you want to submit ?")) {
+                return
+            }
+
+            setIsLoading(true)
+
+            // alert(process.env.SHEET_LINK_URL)
+
+            await fetch("/api/submit", {
+                method: "POST",
+                body: JSON.stringify({
+                    mentor: thisMentor,
+                    participant: thisParName,
+                    attendance: thisAttendance,
+                    session: thisSession,
+                    asst1,
+                    asst2,
+                    asst3,
+                    feedback,
+                    bhFeedback: bhFeedBack,
+                }),
+            });
+
+            setThisMentor('')
+            setThisParName('')
+            setThisAttendance('')
+            setThisSession('')
+            setAsst1(null)
+            setAsst2(null)
+            setAsst3(null)
+            setFeedBack('')
+            setBhFeedBack('')
+
+            alert("Record saved")
+
+            setIsLoading(false)
+        }
+        catch (error) {
+            console.error(error);
+            alert("Error while submitting form");
+        }
+        finally {
+            setIsLoading(false)
         }
 
-        // alert(process.env.SHEET_LINK_URL)
+    }
 
-        await fetch("/api/submit", {
-            method: "POST",
-            body: JSON.stringify({
-                mentor: thisMentor,
-                participant: thisParName,
-                attendance: thisAttendance,
-                session: thisSession,
-                asst1,
-                asst2,
-                asst3,
-                feedback,
-                bhFeedback: bhFeedBack,
-            }),
-        });
-
-        setThisMentor('')
-        setThisParName('')
-        setThisAttendance('')
-        setThisSession('')
-        setAsst1(null)
-        setAsst2(null)
-        setAsst3(null)
-        setFeedBack('')
-        setBhFeedBack('')
-
-        alert("Record saved")
+    if (isLoading) {
+        return (
+            <motion.div
+                className="flex flex-col items-center justify-center h-screen"
+                initial={{ opacity: 0, scale: 0.8 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ duration: 0.5, ease: "easeOut" }}
+            >
+                <Loader2 className="size-20 animate-spin" />
+            </motion.div>
+        )
     }
 
     return (
-        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-18">
+        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-17">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
@@ -139,8 +170,8 @@ export default function HomePage() {
                             <ComboboxEmpty>No items found.</ComboboxEmpty>
                             <ComboboxList>
                                 {(item) => (
-                                    <ComboboxItem key={item} value={item}>
-                                        {item}
+                                    <ComboboxItem key={item[0]} value={item[0]}>
+                                        {item[0]} | {item[1]}
                                     </ComboboxItem>
                                 )}
                             </ComboboxList>
