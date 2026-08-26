@@ -83,7 +83,7 @@ export default function HomePage() {
     }
 
     return (
-        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-28">
+        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-18">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
