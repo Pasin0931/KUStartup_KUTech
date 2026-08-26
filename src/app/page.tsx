@@ -88,7 +88,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 sm:w-110 md:w-180 lg:w-180 shadow-2xl"
+                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 sm:w-95 md:w-180 lg:w-180 shadow-2xl"
             >
 
                 <div className="">
