@@ -83,12 +83,12 @@ export default function HomePage() {
     }
 
     return (
-        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-15">
+        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-28">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 w-150 shadow-2xl"
+                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 sm:w-110 md:w-180 lg:w-180 shadow-2xl"
             >
 
                 <div className="">
@@ -118,8 +118,8 @@ export default function HomePage() {
                             <ComboboxEmpty>No items found.</ComboboxEmpty>
                             <ComboboxList>
                                 {(item) => (
-                                    <ComboboxItem key={item} value={item}>
-                                        {item}
+                                    <ComboboxItem key={item[0]} value={item[0]}>
+                                        {item[0]} | {item[1]}
                                     </ComboboxItem>
                                 )}
                             </ComboboxList>
