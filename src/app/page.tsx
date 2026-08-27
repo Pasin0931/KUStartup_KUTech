@@ -175,33 +175,27 @@ export default function HomePage() {
 
     if (isLoading) {
         return (
-            <motion.div
-                className="flex flex-col items-center justify-center h-screen"
-                initial={{ opacity: 0, scale: 0.8 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.5, ease: "easeOut" }}
-            >
-                <Loader2 className="size-20 animate-spin" />
-            </motion.div>
+            <div className="flex flex-col items-center justify-center h-screen bg-gradient-to-br from-[#1B1339] via-[#2E2B6E] to-[#1B2A4A]">
+                <Loader2 className="size-20 animate-spin text-white" />
+            </div>
         )
     }
 
     return (
-        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-17">
+        <div className="flex flex-col items-center h-screen w-full overflow-y-auto py-17 bg-gradient-to-br from-[#1B1339] via-[#2E2B6E] to-[#1B2A4A]">
             <motion.div
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 sm:w-60 md:w-200 lg:w-200 shadow-2xl"
+                className="bg-white flex flex-col justify-center items-center object-cover border-8 border-[#3A3690] rounded-3xl p-8 gap-6 sm:w-60 md:w-200 lg:w-200 shadow-2xl text-black"
             >
 
                 <div className="">
                     <Image
                         alt="logo"
-                        src="/ku.png"
+                        src="/newKU.png"
                         width={250}
                         height={100}
-                        className="/ku.png"
                     />
                 </div>
                 <h1 className="font-bold text-3xl">Startup 101 2026</h1>
@@ -453,7 +447,7 @@ export default function HomePage() {
                                             transition={{ duration: 0.3, ease: "backOut" }}
                                             className="flex flex-col items-center justify-center"
                                         >
-                                            <Button onClick={() => handle_submit()} className='w-40 h-10 mt-6 bg-gradient-to-br from-[#7FC8C4] via-[#2E6E8E] to-[#1B2A4A] text-white'>Submit Form</Button>
+                                            <Button onClick={() => handle_submit()} className='w-40 h-10 mt-6 bg-gradient-to-br from-[#4A44A8] via-[#2E2B6E] to-[#1B1339] text-white'>Submit Form</Button>
                                         </motion.div>
                                     )}
 
@@ -518,20 +512,20 @@ export default function HomePage() {
 
                         <div className="">
                             <div className="flex flex-col justify-cemter items-center pb-2">
-                                <h3 className="flex flex-col justify-center items-center font-bold">Feedbac for another mentork</h3>
+                                <h3 className="flex flex-col justify-center items-center font-bold">Feedback for another mentork</h3>
                                 <p className="text-[#FF0F0F]">(* สำหรับพิมพ์ประเมินผลงาน สิ่งที่ทำได้ดี และสิ่งที่ควรพัฒนา สําหรับเพื่อน Mentor)</p>
                             </div>
                             <Textarea value={feedbackMentor} onChange={(e) => setFeedBackMentor(e.target.value)}></Textarea>
                         </div>
 
-                        {mentorName1.trim() !== '' && mentorName2.trim() !== '' && feedbackMentor.trim() !== '' && mentorName1.trim() !== '---' && mentorName2.trim() !== '---' &&(
+                        {mentorName1.trim() !== '' && mentorName2.trim() !== '' && feedbackMentor.trim() !== '' && mentorName1.trim() !== '---' && mentorName2.trim() !== '---' && (
                             <motion.div
                                 initial={{ opacity: 0, scale: 0.7 }}
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.3, ease: "backOut" }}
                                 className="flex flex-col items-center justify-center"
                             >
-                                <Button onClick={() => handle_mentor_submit()} className='w-40 h-10 bg-gradient-to-br from-[#7FC8C4] via-[#2E6E8E] to-[#1B2A4A] text-white'>Submit Form</Button>
+                                <Button onClick={() => handle_mentor_submit()} className='w-40 h-10 bg-gradient-to-br from-[#4A44A8] via-[#2E2B6E] to-[#1B1339] text-white'>Submit Form</Button>
                             </motion.div>
                         )}
                     </>
