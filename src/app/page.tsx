@@ -44,6 +44,9 @@ export default function HomePage() {
     const [thisAttendance, setThisAttendance] = useState<string>('');
     const [thisSession, setThisSession] = useState<string>('');
 
+    const [thisMentorEmail, setThisMentorEmail] = useState('')
+    const [thisParEmail, setThisParEmail] = useState('')
+
     const [asst1, setAsst1] = useState<number | null>();
     const [asst2, setAsst2] = useState<number | null>();
     const [asst3, setAsst3] = useState<number | null>();
@@ -65,7 +68,9 @@ export default function HomePage() {
                 method: "POST",
                 body: JSON.stringify({
                     mentor: thisMentor,
+                    mentor_email: thisMentorEmail,
                     participant: thisParName,
+                    participant_email: thisParEmail,
                     attendance: thisAttendance,
                     session: thisSession,
                     asst1,
@@ -77,7 +82,9 @@ export default function HomePage() {
             });
 
             setThisMentor('')
+            setThisMentorEmail('')
             setThisParName('')
+            setThisParEmail('')
             setThisAttendance('')
             setThisSession('')
             setAsst1(null)
@@ -142,7 +149,11 @@ export default function HomePage() {
                     <Combobox
                         items={mentors_name}
                         value={thisMentor}
-                        onValueChange={(value) => setThisMentor(value ?? '')}
+                        onValueChange={(value) => {
+                            const selected = mentors_name.find((item) => item[0] === value);
+                            setThisMentor(value ?? '');
+                            setThisMentorEmail(selected ? selected[1] : '');
+                        }}
                     >
                         <ComboboxInput placeholder="Select your mentor name" />
                         <ComboboxContent>
@@ -163,7 +174,11 @@ export default function HomePage() {
                     <Combobox
                         items={participants_name}
                         value={thisParName}
-                        onValueChange={(value) => setThisParName(value ?? '')}
+                        onValueChange={(value) => {
+                            const selected = participants_name.find((item) => item[0] === value);
+                            setThisParName(value ?? '');
+                            setThisParEmail(selected ? selected[1] : '');
+                        }}
                     >
                         <ComboboxInput placeholder="Select participant name" />
                         <ComboboxContent>
