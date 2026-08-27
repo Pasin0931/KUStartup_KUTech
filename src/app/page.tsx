@@ -119,7 +119,7 @@ export default function HomePage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.4, ease: "easeOut" }}
-                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 sm:w-90 md:w-180 lg:w-180 shadow-2xl"
+                className="flex flex-col justify-center items-center object-cover border-4 border-gray rounded-xl p-8 gap-6 sm:w-60 md:w-200 lg:w-200 shadow-2xl"
             >
 
                 <div className="">
@@ -232,27 +232,27 @@ export default function HomePage() {
 
                             <div>
                                 <FieldSet className="w-full max-w">
-                                    <FieldLegend variant="label">Skill Assetment 1</FieldLegend>
+                                    <FieldLegend variant="label">ข้อที่ 1: การมีส่วนร่วมและความกระตือรือร้น (Engagement & Proactiveness)</FieldLegend>
                                     <FieldDescription>
-                                        Yearly and lifetime plans offer significant savings.
+                                        ผู้เข้าร่วม/ทีม มีความกระตือรือร้น ตั้งใจฟัง และมีส่วนร่วมในการแลกเปลี่ยนหรือซักถามมากน้อยเพียงใด
                                     </FieldDescription>
                                     <RadioGroup value={asst1?.toString() ?? ''} onValueChange={(value) => setAsst1(Number(value))}>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="1" id="asst1-1" />
                                             <FieldLabel htmlFor="asst1-1" className="font-normal">
-                                                1 (สามารถ ...)
+                                                1 คะแนน (ต่ำ): ขาดสมาธิ นิ่งเฉย ไม่ค่อยมีส่วนร่วมในการทำกิจกรรมหรือพูดคุย
                                             </FieldLabel>
                                         </Field>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="2" id="asst1-2" />
                                             <FieldLabel htmlFor="asst1-2" className="font-normal">
-                                                2 (สามารถ ...)
+                                                2 คะแนน (ปานกลาง): ให้ความร่วมมือตามขั้นตอน มีส่วนร่วมเมื่อถูกถาม ทำงานตามที่ได้รับมอบหมายได้ครบถ้วน
                                             </FieldLabel>
                                         </Field>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="3" id="asst1-3" />
                                             <FieldLabel htmlFor="asst1-3" className="font-normal">
-                                                3 (สามารถ ...)
+                                                3 คะแนน (สูง): กระตือรือร้นสูงมาก กล้าซักถาม ขอคำปรึกษาเชิงรุก และแลกเปลี่ยนความคิดเห็นกับ Mentor อย่างสม่ำเสมอ
                                             </FieldLabel>
                                         </Field>
                                     </RadioGroup>
@@ -261,27 +261,27 @@ export default function HomePage() {
 
                             <div className="pt-6">
                                 <FieldSet className="w-full max-w">
-                                    <FieldLegend variant="label">Skill Assetment 2</FieldLegend>
+                                    <FieldLegend variant="label">ข้อที่ 2: ความเข้าใจและการนำเนื้อหาไปประยุกต์ใช้ (Concept Application & Task Progress)</FieldLegend>
                                     <FieldDescription>
-                                        Yearly and lifetime plans offer significant savings.
+                                        ผู้เข้าร่วม/ทีม สามารถทำความเข้าใจหัวข้อประจำวันและนำไปลงมือปฏิบัติกับชิ้นงาน/โปรเจกต์ได้ตรงเป้าหมายเพียงใด
                                     </FieldDescription>
                                     <RadioGroup value={asst2?.toString() ?? ''} onValueChange={(value) => setAsst2(Number(value))}>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="1" id="asst2-1" />
                                             <FieldLabel htmlFor="asst2-1" className="font-normal">
-                                                1 (สามารถ ...)
+                                                1 คะแนน (ต่ำ): สับสนในโจทย์/ทฤษฎี ยังจับทิศทางงานไม่ได้ ชิ้นงานหรือผลลัพธ์ยังไม่คืบหน้า
                                             </FieldLabel>
                                         </Field>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="2" id="asst2-2" />
                                             <FieldLabel htmlFor="asst2-2" className="font-normal">
-                                                2 (สามารถ ...)
+                                                2 คะแนน (ปานกลาง): เข้าใจคอนเซ็ปต์หลัก ชิ้นงานพัฒนาไปตามโจทย์ได้ตามมาตรฐาน แต่อาจยังขาดมิติเชิงลึก
                                             </FieldLabel>
                                         </Field>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="3" id="asst2-3" />
                                             <FieldLabel htmlFor="asst2-3" className="font-normal">
-                                                3 (สามารถ ...)
+                                                3 คะแนน (สูง): เข้าใจโจทย์อย่างแตกฉาน ประยุกต์ใช้เครื่องมือได้อย่างแม่นยำ และงานมีความคืบหน้าเห็นผลลัพธ์ชัดเจน
                                             </FieldLabel>
                                         </Field>
                                     </RadioGroup>
@@ -290,27 +290,27 @@ export default function HomePage() {
 
                             <div className="pt-6">
                                 <FieldSet className="w-full max-w">
-                                    <FieldLegend variant="label">Skill Assetment 3</FieldLegend>
+                                    <FieldLegend variant="label">ข้อที่ 3: การเปิดรับและปรับปรุงตามคำแนะนำ (Coachability & Team Dynamics)</FieldLegend>
                                     <FieldDescription>
-                                        Yearly and lifetime plans offer significant savings.
+                                        ผู้เข้าร่วม/ทีม มีทัศนคติที่ดีต่อการรับฟังคำแนะนำ และร่วมมือกันปรับปรุงพัฒนาต่อยอดผลงานได้ดีเพียงใด
                                     </FieldDescription>
                                     <RadioGroup value={asst3?.toString() ?? ''} onValueChange={(value) => setAsst3(Number(value))}>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="1" id="asst3-1" />
                                             <FieldLabel htmlFor="asst3-1" className="font-normal">
-                                                1 (สามารถ ...)
+                                                1 คะแนน (ต่ำ): ยึดติดกับแนวคิดเดิม ไม่เปิดรับ Feedback หรือสมาชิกในทีมยังขาดการประสานงานที่ดี
                                             </FieldLabel>
                                         </Field>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="2" id="asst3-2" />
                                             <FieldLabel htmlFor="asst3-2" className="font-normal">
-                                                2 (สามารถ ...)
+                                                2 คะแนน (ปานกลาง): รับฟังข้อเสนอแนะ นำไปปรับแก้ตามคำแนะนำพื้นฐาน และทำงานร่วมกันในทีมได้ราบรื่น
                                             </FieldLabel>
                                         </Field>
                                         <Field orientation="horizontal">
                                             <RadioGroupItem value="3" id="asst3-3" />
                                             <FieldLabel htmlFor="asst3-3" className="font-normal">
-                                                3 (สามารถ ...)
+                                                3 คะแนน (สูง): มี Coachability สูง พร้อมรับฟัง ปรับแก้งานอย่างรวดเร็ว และทีมมีพลังการทำงานร่วมกันอย่างมีประสิทธิภาพ
                                             </FieldLabel>
                                         </Field>
                                     </RadioGroup>
